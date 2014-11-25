@@ -11,8 +11,21 @@
 (global-set-key [C-up] 'windmove-up)              ; move to upper window
 (global-set-key [C-down] 'windmove-down)          ; move to downer window
 
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+(require 'move-text)
+(move-text-default-bindings)
+
 (require 'minimap)
 (global-set-key (kbd "C-x m") 'minimap-toggle)
+
+; Let's get some jenkins status in here
+(require 'jenkins-watch)
+(setq jenkins-api-url "http://localhost:8080/job/heartscan-build-master/api/xml")
+(jenkins-watch-start)
 
 ; Make things a bit more readable
 (setq-default truncate-lines t)
@@ -21,9 +34,11 @@
 (global-linum-mode t)
 
 ; pretty
-(load-theme 'tsdh-dark t)
-(require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+(load-theme 'sanityinc-tomorrow-eighties t)
+
+;; doesn't seem to run in emacs 24.4 					
+;(require 'rainbow-delimiters)
+; (global-rainbow-delimiters-mode)
 
 ; editing 
 (require 'multiple-cursors)
@@ -32,12 +47,18 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(global-set-key (kbd "C-x o") 'next-multiframe-window)
+
 ; autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories
              "~/.emacs.d/.cask/24.3.1/elpa/auto-complete-20140208.653/dict")
 (setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
 (global-auto-complete-mode t)
+
+; autopair
+(require 'autopair)
+(autopair-global-mode)
 
 ; Start auto-completion after 2 characters of a word
 (setq ac-auto-start 2)
@@ -67,6 +88,7 @@
 
 ;; we need some git
 (require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ; js2 vs boring old js
 (require 'js2-mode)
@@ -74,18 +96,9 @@
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 
-; flymake jshint my js files
+; flymake/flycheck-tip jshint my js files
 (require 'flymake-jshint)
 (add-hook 'js-mode-hook 'flymake-jshint-load)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(help-at-pt-display-when-idle (quote (flymake-overlay)) nil (help-at-pt))
- '(help-at-pt-timer-delay 0.9)
- '(inhibit-startup-screen t)
- '(minimap-update-delay 0.5))
 
 (require 'ido)
 (ido-mode t)
@@ -93,6 +106,8 @@
 (global-set-key (kbd "C-x f") 'find-file-in-repository)
 
 
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 
 (custom-set-faces
