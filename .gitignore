@@ -1,0 +1,10 @@
+*~
+/session.*
+/eshell/
+/projectile-bookmarks.eld
+/ede-projects.el
+/ac-comphist.dat
+/.mc-lists.el
+/.cask/
+/url/
+/tramp
