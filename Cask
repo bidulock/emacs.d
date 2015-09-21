@@ -11,7 +11,6 @@
 (depends-on "epresent")
 (depends-on "find-file-in-repository")
 (depends-on "flymake-jshint")
-(depends-on "git-commit-mode")
 (depends-on "graphviz-dot-mode")
 (depends-on "ido")
 (depends-on "butler")
@@ -37,3 +36,4 @@
 (depends-on "tern-auto-complete")
 (depends-on "powerline")
 (depends-on "helm-ag")
+
