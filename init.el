@@ -30,6 +30,32 @@
                                :size 12
                                :weight 'normal)))
 
+(setq-default show-trailing-whitespace 't)
+
+(defun zoom-in-in ()
+  "Increase font size for 4k display and tired eyes"
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 180))
+(defun zoom-in ()
+  "Increase font size for 4k display"
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 160))
+(defun zoom-out ()
+  "Decrease font size for normal display"
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 120))
+
+(setq split-height-threshold nil)
+(setq split-width-threshold 999)
+(setq display-buffer-reuse-frames 't)
+
+(global-set-key (kbd "C-!") 'zoom-out)
+(global-set-key (kbd "C-@") 'zoom-in)
+(global-set-key (kbd "C-#") 'zoom-in-in)
+
 ; general keybindings
 ; ag and rgrep search binding
 (global-set-key (kbd "C-.") 'ag-project-regexp)
@@ -66,7 +92,7 @@
 (require 'butler)
 (add-to-list 'butler-server-list
              '(jenkins "ARTERYS - CI"
-                       (server-address . "http://localhost:8080")))
+                       (server-address . "http://l:8080")))
 
 ; Make things a bit more readable
 (setq-default truncate-lines t)
@@ -111,7 +137,7 @@
 ;; setup indenting size and replace tabs with spaces
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
+;; (setq indent-line-function 'insert-tab)
 
 (setq c-mode-hook
   (function (lambda ()
